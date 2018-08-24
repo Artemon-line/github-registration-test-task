@@ -1,0 +1,29 @@
+{
+  "name": "github-registration-test-task",
+  "version": "1.0.0",
+  "description": "test task for register on github, using bdd webdriverio cucumberjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Artemon-line/github-registration-test-task.git"
+  },
+  "keywords": [
+    "github",
+    "test-task",
+    "webdriver",
+    "bdd"
+  ],
+  "author": "Artemy Hladenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Artemon-line/github-registration-test-task/issues"
+  },
+  "homepage": "https://github.com/Artemon-line/github-registration-test-task#readme",
+  "devDependencies": {
+    "wdio-cucumber-framework": "^2.2.3",
+    "webdriverio": "^4.13.2"
+  }
+}
