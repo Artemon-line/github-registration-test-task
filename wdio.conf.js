@@ -1,5 +1,11 @@
 exports.config = {
 
+    //ChromeDriver service
+    port: '9515',
+    path: '/',
+    // ...
+    services: ['chromedriver'],
+
     //
     // ==================
     // Specify Test Files
@@ -49,8 +55,13 @@ exports.config = {
             // to run chrome headless the following flags are required
             // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
             args: [
-                '--headless',
-                '--disable-gpu'
+                //'--headless',
+                '--disable-gpu',
+                '--ignore-certificate-errors',
+                '--disable-popup-blocking',
+                '--disable-infobars',
+                '--incognito',
+                '--kiosk'
             ],
         }
     }],
@@ -134,14 +145,14 @@ exports.config = {
     // reporters: ['dot'],//
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
-        require: ['./features/step-definitions'],        // <string[]> (file/dir) require files before executing features
+        compiler: ['ts:ts-node/register'],
+        require: ['features/**/*.ts'],
         backtrace: false,   // <boolean> show full backtrace for errors
-        compiler: [],       // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
         dryRun: false,      // <boolean> invoke formatters without executing steps
         failFast: false,    // <boolean> abort the run on first failure
         format: ['pretty'], // <string[]> (type[:path]) specify the output format, optionally supply PATH to redirect formatter output (repeatable)
         colors: true,       // <boolean> disable colors in formatter output
-        snippets: true,     // <boolean> hide step definition snippets for pending steps
+        snippets: false,     // <boolean> hide step definition snippets for pending steps
         source: true,       // <boolean> hide source uris
         profile: [],        // <string[]> (name) specify the profile to use
         strict: false,      // <boolean> fail if there are any undefined or pending steps
