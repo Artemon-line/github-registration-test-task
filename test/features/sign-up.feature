@@ -9,7 +9,7 @@ Feature: User sign-up
     @Positive
     Scenario Outline: New user should be registered
         When User fullfil the forms <username> <email> <password>
-        And click on "Sign Up for GitHub" button
+        And click on signup button
         Then User should be directed to personal plan page
         And tite should contain text "Welcome to GitHub"
         And title should contain user name "You've taken your first step into a larger world, @"<username>
@@ -17,6 +17,16 @@ Feature: User sign-up
         Examples:
             | username | email             | password      |
             | (random) | (random)@test.com | (random)_test |
+
+    @Negative
+    Scenario: Fields should be empty
+        When User fullfil the forms empty
+        And click on signup button
+        Then error message should be shown 'There were problems creating your account.'
+        And field 'Username' should contains error 'Login can't be blank'
+        And field 'Email address' should contains error 'Email can't be blank'
+        And field 'Password' should contains error 'Password can't be blank and is too short (minimum is 7 characters)'
+
 
     @Negative
     Scenario Outline: Fields verificatrion
@@ -36,7 +46,7 @@ Feature: User sign-up
     @Negative
     Scenario Outline: Validation cheks
         When User fullfil the forms <name> <email> <password>
-        And click on "Sign Up for GitHub" button
+        And click on signup button
         Then User should not be directed to personal plan page
         And warning notification message should counatin text: <warn_text>
 

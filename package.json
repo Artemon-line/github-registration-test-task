@@ -1,39 +1,39 @@
 {
-  "name": "github-registration-test-task",
-  "version": "1.0.0",
-  "description": "test task for register on github, using bdd webdriverio cucumberjs",
-  "main": "index.js",
-  "scripts": {
-    "test": "./node_modules/webdriverio/bin/wdio wdio.conf.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Artemon-line/github-registration-test-task.git"
-  },
-  "keywords": [
-    "github",
-    "test-task",
-    "webdriver",
-    "bdd"
-  ],
-  "author": "Artemy Hladenko",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Artemon-line/github-registration-test-task/issues"
-  },
-  "homepage": "https://github.com/Artemon-line/github-registration-test-task#readme",
-  "dependencies": {
-    "chai": "~4.1.2",
-    "@types/chai": "~4.1.4",
-    "@types/webdriverio": "~4.10.3",
-    "ts-node": "~7.0.1",
-    "typescript": "~3.0.1",
-    "webdriverio": "~4.13.2"
-  },
-  "devDependencies": {
-    "rimraf": "^2.6.2",
-    "chromedriver": "~2.33.2",
-    "wdio-chromedriver-service": "~0.1.3",
-    "wdio-cucumber-framework": "^2.2.6"
-  }
+    "name": "github-registration-test-task",
+    "version": "1.0.0",
+    "description": "test task for register on github, using bdd webdriverio cucumberjs",
+    "main": "index.js",
+    "scripts": {
+        "test": "node ./node_modules/webdriverio/bin/wdio wdio.conf.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Artemon-line/github-registration-test-task.git"
+    },
+    "keywords": [
+        "github",
+        "test-task",
+        "webdriver",
+        "bdd"
+    ],
+    "author": "Artemy Hladenko",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Artemon-line/github-registration-test-task/issues"
+    },
+    "homepage": "https://github.com/Artemon-line/github-registration-test-task#readme",
+    "dependencies": {
+        "chai": "~4.1.2",
+        "@types/chai": "~4.1.4",
+        "@types/webdriverio": "~4.10.3",
+        "ts-node": "~7.0.1",
+        "typescript": "~3.0.1",
+        "webdriverio": "~4.13.2"
+    },
+    "devDependencies": {
+        "rimraf": "^2.6.2",
+        "chromedriver": "~2.41.0",
+        "wdio-chromedriver-service": "~0.1.3",
+        "wdio-cucumber-framework": "^2.2.6"
+    }
 }

@@ -9,9 +9,11 @@ Given(/^User on the registration page$/, (): void => {
 });
 
 When(/^User fullfil the forms (.+) (.+) (.+)$/, (username, email, password): void => {
-    console.log(username, email, password);
-
     page.fulfillForm(username, email, password);
+});
+
+When(/^User fullfil the forms empty$/, (): void => {
+    page.fulfillForm('', '', '');
 });
 
 Then(/User should (be|not be) directed to personal plan page/, (value: boolean) => {
@@ -19,7 +21,7 @@ Then(/User should (be|not be) directed to personal plan page/, (value: boolean) 
         .to.be.equals("");
 });
 
-When(/click on "Sign Up for GitHub" button/, () => {
+When(/click on signup button/, () => {
     page.clickOnSubmit();
 });
 
@@ -32,7 +34,15 @@ Then(/title should contain user name "You\'ve taken your first step into a large
     //expect(planPage.containsMessage(text));
 });
 
+Then(/error message should be shown '(.*)'/, (message) => {
+    expect(page.getErrorMessageText()).to.equal(message);
+});
+
 Then(/warning notification message should counatin text: (.+)/, (warntext) => {
     expect(page.isWarning(warntext)).true;
 });
+
+Then(/field '(.+)' should contains error '(.*)'/, (field: string, message: string) => {
+    expect(page.isWarningOnField(field)).to.be.equal(message);
+})
 
