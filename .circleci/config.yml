@@ -6,8 +6,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:8.0
-      - image: selenium/node-chrome
-        name: node-chrome
+      - image: selenium/standalone-chrome
     working_directory: ~/repo
     steps:
       - checkout

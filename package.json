@@ -23,17 +23,17 @@
         },
         "homepage": "https://github.com/Artemon-line/github-registration-test-task#readme",
         "devDependencies": {
-                "chai": "~4.1.2",
                 "@types/chai": "~4.1.4",
                 "@types/webdriverio": "~4.10.3",
-                "ts-node": "~7.0.1",
-                "typescript": "~3.0.1",
-                "webdriverio": "~4.13.2",
+                "chai": "~4.1.2",
+                "chromedriver": "~2.41.0",
                 "randomstring": "~1.1.5",
                 "rimraf": "^2.6.2",
-                "chromedriver": "~2.41.0",
+                "ts-node": "~7.0.1",
+                "typescript": "~3.0.1",
                 "wdio-chromedriver-service": "~0.1.3",
                 "wdio-cucumber-framework": "^2.2.6",
-                "wdio-multiple-cucumber-html-reporter": "~0.2.1"
+                "wdio-multiple-cucumber-html-reporter": "~0.2.1",
+                "webdriverio": "^4.8.0"
         }
 }
