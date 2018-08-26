@@ -1,37 +1,49 @@
 import { Given, When, Then, And } from 'cucumber';
 import { expect } from 'chai';
 import { GitHubRegisterPage } from "../pages/register.page";
+import * as randomstring from "randomstring";
 
 const page: GitHubRegisterPage = new GitHubRegisterPage();
+let randomPrefix;
+let randomMarker = '(random)';
 
 Given(/^User on the registration page$/, (): void => {
     page.open();
 });
 
 When(/^User fullfil the forms (.+) (.+) (.+)$/, (username, email, password): void => {
-    page.fulfillForm(username, email, password);
+    randomPrefix = (`${username}${email}${password}`.includes(randomMarker)) ? randomstring.generate({ length: 12, charset: 'alphabetic' }) : '';
+    let args = [username, email, password].map(x => (x.includes(randomMarker) ? x.replace(randomMarker, randomPrefix) : x));
+    console.log(args);
+
+    page.fulfillForm(args);
 });
 
 When(/^User fullfil the forms empty$/, (): void => {
-    page.fulfillForm('', '', '');
+    page.fulfillForm(['', '', '']);
 });
 
-Then(/User should (be|not be) directed to personal plan page/, (value: boolean) => {
-    expect(page.getTitle())
-        .to.be.equals("");
+Then(/User should (be|not be) directed to personal plan page/, (value: string) => {
+    let cond = !value.includes('not');
+    expect(page.isDirectedToPlanPage()).to.equal(cond);
 });
+
+Then(/User should be directed to varify account page/, () => {
+    expect(page.getTitle()).to.equals('Join GitHub · GitHub');
+})
 
 When(/click on signup button/, () => {
     page.clickOnSubmit();
 });
 
-Then(/tite should contain text "(.*)"/, (text: string) => {
-    expect(page.isDirectedToPlanPage).to.be.true;
-    //expect(planPage.containsMessage(text));
+Then(/Welcome message should appear with text "(.*)"/, (text: string) => {
+    expect(page.getWelcomeMessage()).to.contains({ title: text });
 });
 
-Then(/title should contain user name "You\'ve taken your first step into a larger world, @(.+)/, (username) => {
-    //expect(planPage.containsMessage(text));
+Then(/title should contain user name "(.*)"(.+)/, (welcomeText, username) => {
+
+    let currentUser = (username.includes(randomMarker)) ? username.replace(randomMarker, randomPrefix) : username;
+    expect(page.getWelcomeMessage()).to.contains({ text: `${welcomeText}${currentUser}.` });
 });
 
 Then(/error message should be shown '(.*)'/, (message) => {

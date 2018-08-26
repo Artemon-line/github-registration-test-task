@@ -10,13 +10,15 @@ Feature: User sign-up
     Scenario Outline: New user should be registered
         When User fullfil the forms <username> <email> <password>
         And click on signup button
+        Then User should be directed to varify account page
+        When click on signup button
         Then User should be directed to personal plan page
-        And tite should contain text "Welcome to GitHub"
+        And Welcome message should appear with text "Welcome to GitHub"
         And title should contain user name "You've taken your first step into a larger world, @"<username>
 
         Examples:
-            | username | email             | password      |
-            | (random) | (random)@test.com | (random)_test |
+            | username | email             | password         |
+            | (random) | (random)@test.com | (random)_test123 |
 
     @Negative
     Scenario: Fields should be empty
@@ -47,19 +49,20 @@ Feature: User sign-up
     Scenario Outline: Validation cheks
         When User fullfil the forms <name> <email> <password>
         And click on signup button
-        Then User should not be directed to personal plan page
+        Then error message should be shown 'There were problems creating your account.'
         And warning notification message should counatin text: <warn_text>
 
         Examples:
-            | username | email         | password  | warn_text |
-            | admin    | admin@asd.com | 123_admin | sdsd      |
-            | -        | admin@asd.com | 123_admin | sdsd      |
-            | admin    | -             | 123_admin | sdsd      |
-            | admin    | admin@asd.com | -         | sdsd      |
-            | admin    | -             | -         | sdsd      |
-            | -        | -             | -         | sdsd      |
-            | -        | -             | 123_admin | sdsd      |
-            | admin    | admin@asd.com | 123       | sdsd      |
+            | username | email         | password  | warn_text                                                                             |
+            | admin    | admin@asd.com | 123_admin | sdsd                                                                                  |
+            | -        | admin@asd.com | 123_admin | sdsd                                                                                  |
+            | admin    | -             | 123_admin | sdsd                                                                                  |
+            | admin    | admin@asd.com | -         | sdsd                                                                                  |
+            | admin    | -             | -         | sdsd                                                                                  |
+            | -        | -             | -         | sdsd                                                                                  |
+            | -        | -             | 123_admin | sdsd                                                                                  |
+            | admin    | admin@asd.com | 123       | sdsd                                                                                  |
+            | aaa      | aaa@test.com  | aaa       | Password can't be your username and has been compromised in a third party data breach |
 
 
 

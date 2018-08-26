@@ -1,11 +1,11 @@
 class GitHubRegisterPage {
 
-
     private _username: string = 'input[name="user[login]"]';
     private _email: string = 'input[name="user[email]"]';
     private _password: string = 'input[name="user[password]"]';
     private _submit: string = 'button[type="submit"]';
     private _error: string = `.error`
+    private _welcomeMessage: string = '#js-pjax-container';
 
     /**
      * open page
@@ -18,25 +18,39 @@ class GitHubRegisterPage {
         return browser.getTitle();
     }
 
+    public getWelcomeMessage(): any {
+        let el = $(this._welcomeMessage);
+        return {
+            title: el.$('h1').getText(),
+            text: el.$('.lead').getText()
+        }
+    }
+
     /**
      * fulfillForm
      */
-    public fulfillForm(userName: string, email: string, password: string) {        
-            $(this._username).addValue(userName);
-            $(this._email).addValue(email);
-            $(this._password).addValue(password);
+    
+    public fulfillForm([userName, email, password]: string[]) {        
+        $(this._username).addValue(userName);
+        $(this._email).addValue(email);
+        $(this._password).addValue(password);
+    }
+
+    public isSubmitButtonEnabled(): boolean {
+        return $(this._submit).isEnabled();
     }
 
     /**
      * clickOnSubmit
      */
     public clickOnSubmit() {
+        $(this._submit).waitForEnabled();
         $(this._submit).click();
-        $(this._username).waitForVisible();
+        
     }
 
     public isDirectedToPlanPage(): boolean {
-        return browser.getUrl().includes('');
+        return browser.getUrl().endsWith('/plan');
     }
 
     public isWarning(text: string): boolean {
