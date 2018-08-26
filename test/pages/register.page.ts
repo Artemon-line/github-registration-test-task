@@ -4,10 +4,13 @@ class GitHubRegisterPage {
     private _email: string = 'input[name="user[email]"]';
     private _password: string = 'input[name="user[password]"]';
     private _submit: string = 'button[type="submit"]';
-    private _error: string = `.error`
     private _welcomeMessage: string = '#js-pjax-container';
+    private _waitTimeout: number = 3000;
+    private _errorContainer: string = '.form-group.errored';
+    private _errorTitle: string = '.flash-error';
 
     public open(): void {
+        browser.deleteCookie();
         browser.url('/');
     }
 
@@ -50,9 +53,7 @@ class GitHubRegisterPage {
         return $(this._submit).isEnabled();
     }
 
-    /**
-     * clickOnSubmit
-     */
+
     public clickOnSubmit() {
         $(this._submit).waitForEnabled();
         $(this._submit).click();
@@ -60,8 +61,8 @@ class GitHubRegisterPage {
     }
 
     public isAlertOnField(field: string): boolean {
-        $('.form-group.errored').waitForVisible(3000);
-        return this.mapTitlesToMessages('.form-group.errored', '\n').get(field) != undefined;
+        $(this._errorContainer).waitForVisible(this._waitTimeout);
+        return this.mapTitlesToMessages(this._errorContainer, '\n').get(field) != undefined;
     }
 
     public isDirectedToPlanPage(): boolean {
@@ -73,10 +74,12 @@ class GitHubRegisterPage {
     }
 
     public getFieldErrorMessage(field: string): string {
-        return this.mapTitlesToMessages('.form-group.errored', '\n').get(field);
+        $(this._errorContainer).waitForVisible(this._waitTimeout);
+        return this.mapTitlesToMessages(this._errorContainer, '\n').get(field);
     }
     getErrorMessageText(): string {
-        return $('.flash-error').getText();
+        $(this._errorTitle).waitForVisible(this._waitTimeout);
+        return $(this._errorTitle).getText();
     }
 
     private mapTitlesToMessages(locator: string, d: string): Map<string, string> {

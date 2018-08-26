@@ -47,23 +47,18 @@ Feature: User sign-up
             | Email      | admin                                      | Email is invalid or already taken                                                                                                                     |
 
     @Negative
-    Scenario Outline: Validation cheks
-        When User fullfil the forms <name> <email> <password>
+    Scenario Outline: Password post validation cheks
+        When User fullfil the forms <username> <email> <password>
         And click on signup button
         Then error message should be shown 'There were problems creating your account.'
-        And warning notification message should counatin text: <warn_text>
+        And field 'Password' should contains error '<text>' for input <username> <email> <password>
 
         Examples:
-            | username | email         | password  | warn_text                                                                             |
-            | admin    | admin@asd.com | 123_admin | sdsd                                                                                  |
-            | -        | admin@asd.com | 123_admin | sdsd                                                                                  |
-            | admin    | -             | 123_admin | sdsd                                                                                  |
-            | admin    | admin@asd.com | -         | sdsd                                                                                  |
-            | admin    | -             | -         | sdsd                                                                                  |
-            | -        | -             | -         | sdsd                                                                                  |
-            | -        | -             | 123_admin | sdsd                                                                                  |
-            | admin    | admin@asd.com | 123       | sdsd                                                                                  |
-            | aaa      | aaa@test.com  | aaa       | Password can't be your username and has been compromised in a third party data breach |
+            | username      | email             | password      | text                                                                                                                                        |
+            | (random)-name | (random)@test.com | (random)-name | Password can't be your username                                                                                                             |
+            | (random)-name | (random)@test.com | 1234AA        | Password is too short (minimum is 7 characters), needs at least one lowercase letter, and has been compromised in a third party data breach |
+            | (random)-name | (random)@test.com | 1adMin        | Password is too short (minimum is 7 characters)                                                                                             |
+            | (random)-name | (random)@test.com | ADMINADMIN123 | Password needs at least one lowercase letter                                                                                                |
 
 
 

@@ -56,9 +56,9 @@ Then(/error message should be shown '(.*)'/, (message) => {
     expect(message).to.equal(page.getErrorMessageText());
 });
 
-Then(/warning notification message should counatin text: (.+)/, (warntext) => {
-    expect(page.isWarning(warntext)).true;
-});
+// Then(/warning notification message should counatin text: (.+)/, (warntext) => {
+//     expect(expect).to.be.includes(page.getFieldErrorMessage(field));
+// });
 
 Then(/field '(.+)' should contains error '(.*)'(?:)?/, (field: string, message: string) => {
     expect(message).to.be.equal(page.getFieldErrorMessage(field));
