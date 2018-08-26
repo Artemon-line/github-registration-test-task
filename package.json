@@ -35,6 +35,7 @@
                 "rimraf": "^2.6.2",
                 "chromedriver": "~2.41.0",
                 "wdio-chromedriver-service": "~0.1.3",
-                "wdio-cucumber-framework": "^2.2.6"
+                "wdio-cucumber-framework": "^2.2.6",
+                "wdio-multiple-cucumber-html-reporter": "~0.2.1"
         }
 }

@@ -1,4 +1,4 @@
-import { Given, When, Then, And } from 'cucumber';
+import { Given, When, Then, After, Status } from 'cucumber';
 import { expect } from 'chai';
 import { GitHubRegisterPage } from "../pages/register.page";
 import * as randomstring from "randomstring";
@@ -64,4 +64,12 @@ Then(/field '(.+)' should contains error '(.*)'(?:)?/, (field: string, message: 
     expect(message).to.be.equal(page.getFieldErrorMessage(field));
 });
 
+After((scenarioResult) => {
+    // Here it is added to a failed step, but each time you call `browser.saveScreenshot()` it will automatically bee added to the report
+    if (scenarioResult.result.status === Status.FAILED) {
+        // It will add the screenshot to the JSON
+        browser.saveScreenshot()
+    }
+    return scenarioResult.status;
+});
 
