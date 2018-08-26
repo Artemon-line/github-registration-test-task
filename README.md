@@ -1,4 +1,6 @@
 # Github registration test task
+[![CircleCI](https://circleci.com/gh/Artemon-line/github-registration-test-task/tree/master.svg?style=svg)](https://circleci.com/gh/Artemon-line/github-registration-test-task/tree/master)
+
 Simple example of usage cucumber.js webdriver.io with typescript
 
 ## Requirement:
