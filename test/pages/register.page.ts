@@ -7,9 +7,6 @@ class GitHubRegisterPage {
     private _error: string = `.error`
     private _welcomeMessage: string = '#js-pjax-container';
 
-    /**
-     * open page
-     */
     public open(): void {
         browser.url('/');
     }
@@ -26,11 +23,24 @@ class GitHubRegisterPage {
         }
     }
 
-    /**
-     * fulfillForm
-     */
-    
-    public fulfillForm([userName, email, password]: string[]) {        
+    public fulfillField(field: string, arg: any): void {
+        switch (field) {
+            case 'Username':
+                $(this._username).addValue(arg);
+                break;
+            case 'Email':
+                $(this._email).addValue(arg);
+                break;
+            case 'Password':
+                $(this._password).addValue(arg);
+                break;
+            default:
+                new Error(`No seach field: ${field}`)
+        }
+        browser.moveToObject(this._submit);
+    }
+
+    public fulfillForm([userName, email, password]: string[]) {
         $(this._username).addValue(userName);
         $(this._email).addValue(email);
         $(this._password).addValue(password);
@@ -46,7 +56,12 @@ class GitHubRegisterPage {
     public clickOnSubmit() {
         $(this._submit).waitForEnabled();
         $(this._submit).click();
-        
+
+    }
+
+    public isAlertOnField(field: string): boolean {
+        $('.form-group.errored').waitForVisible(3000);
+        return this.mapTitlesToMessages('.form-group.errored', '\n').get(field) != undefined;
     }
 
     public isDirectedToPlanPage(): boolean {
@@ -57,7 +72,7 @@ class GitHubRegisterPage {
         return browser.selectByVisibleText(text).isExisting();
     }
 
-    public isWarningOnField(field: string): string {
+    public getFieldErrorMessage(field: string): string {
         return this.mapTitlesToMessages('.form-group.errored', '\n').get(field);
     }
     getErrorMessageText(): string {

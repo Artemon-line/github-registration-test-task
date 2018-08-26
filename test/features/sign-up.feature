@@ -31,19 +31,20 @@ Feature: User sign-up
 
 
     @Negative
-    Scenario Outline: Fields verificatrion
-        When User add incorrect <data> to field <field_name>
-        Then field <field_name> should contains alert sign
-        And alert message should contains warning <text>
-
+    Scenario Outline: Fields onfly validation
+        When User fullfil field '<field_name>' with '<data>'
+        Then field '<field_name>' should contains alert sign
+        And field '<field_name>' should contains error '<text>' for  input <data>
         Examples:
-            | field_name | data  | text                                     |
-            | username   | admin | Username name 'admin' is a reserved word |
-            | username   | test  | Username is already taken                |
-            | username   | admin | Value 3                                  |
-            | username   | admin | Value 3                                  |
-            | username   | admin | Value 3                                  |
-            | username   | admin | Value 3                                  |
+            | field_name | data                                       | text                                                                                                                                                  |
+            | Username   | admin                                      | Username name 'admin' is a reserved word                                                                                                              |
+            | Username   | test                                       | Username is already taken                                                                                                                             |
+            | Username   | testtesttesttesttesttesttesttesttesttest   | Username is too long (maximum is 39 characters)                                                                                                       |
+            | Username   | testtesttesttesttesttesttesttesttest--test | Username is too long (maximum is 39 characters) and may only contain alphanumeric characters or single hyphens, and cannot begin or end with a hyphen |
+            | Username   | -test                                      | Username may only contain alphanumeric characters or single hyphens, and cannot begin or end with a hyphen                                            |
+            | Username   | test-                                      | Username may only contain alphanumeric characters or single hyphens, and cannot begin or end with a hyphen and is already taken                       |
+            | Username   | -test-                                     | Username may only contain alphanumeric characters or single hyphens, and cannot begin or end with a hyphen                                            |
+            | Email      | admin                                      | Email is invalid or already taken                                                                                                                     |
 
     @Negative
     Scenario Outline: Validation cheks

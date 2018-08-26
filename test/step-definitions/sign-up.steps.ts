@@ -14,13 +14,23 @@ Given(/^User on the registration page$/, (): void => {
 When(/^User fullfil the forms (.+) (.+) (.+)$/, (username, email, password): void => {
     randomPrefix = (`${username}${email}${password}`.includes(randomMarker)) ? randomstring.generate({ length: 12, charset: 'alphabetic' }) : '';
     let args = [username, email, password].map(x => (x.includes(randomMarker) ? x.replace(randomMarker, randomPrefix) : x));
-    console.log(args);
-
     page.fulfillForm(args);
 });
 
 When(/^User fullfil the forms empty$/, (): void => {
     page.fulfillForm(['', '', '']);
+});
+
+When(/click on signup button/, () => {
+    page.clickOnSubmit();
+});
+
+When(/User fullfil field '(.*)' with '(.*)'/, (field: string, data: any) => {
+    page.fulfillField(field, data);
+});
+
+Then(/field '(.*)' should contains alert sign/, (field: string) => {
+    expect(page.isAlertOnField(field), `alert doesn't appear on field ${field}`).to.be.true;
 });
 
 Then(/User should (be|not be) directed to personal plan page/, (value: string) => {
@@ -29,12 +39,8 @@ Then(/User should (be|not be) directed to personal plan page/, (value: string) =
 });
 
 Then(/User should be directed to varify account page/, () => {
-    expect(page.getTitle()).to.equals('Join GitHub · GitHub');
+    expect('Join GitHub · GitHub').to.equals(page.getTitle());
 })
-
-When(/click on signup button/, () => {
-    page.clickOnSubmit();
-});
 
 Then(/Welcome message should appear with text "(.*)"/, (text: string) => {
     expect(page.getWelcomeMessage()).to.contains({ title: text });
@@ -47,14 +53,15 @@ Then(/title should contain user name "(.*)"(.+)/, (welcomeText, username) => {
 });
 
 Then(/error message should be shown '(.*)'/, (message) => {
-    expect(page.getErrorMessageText()).to.equal(message);
+    expect(message).to.equal(page.getErrorMessageText());
 });
 
 Then(/warning notification message should counatin text: (.+)/, (warntext) => {
     expect(page.isWarning(warntext)).true;
 });
 
-Then(/field '(.+)' should contains error '(.*)'/, (field: string, message: string) => {
-    expect(page.isWarningOnField(field)).to.be.equal(message);
-})
+Then(/field '(.+)' should contains error '(.*)'(?:)?/, (field: string, message: string) => {
+    expect(message).to.be.equal(page.getFieldErrorMessage(field));
+});
+
 
