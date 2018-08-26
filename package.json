@@ -4,7 +4,9 @@
         "description": "test task for register on github, using bdd webdriverio cucumberjs",
         "main": "index.js",
         "scripts": {
-                "test": "node ./node_modules/webdriverio/bin/wdio wdio.conf.js"
+                "test": "node ./node_modules/webdriverio/bin/wdio wdio.conf.dev.js",
+                "test-ci": "node ./node_modules/webdriverio/bin/wdio wdio.conf.ci.js"
+
         },
         "repository": {
                 "type": "git",

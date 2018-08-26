@@ -1,11 +1,4 @@
 exports.config = {
-
-        //ChromeDriver service
-        port: '9515',
-        path: '/',
-        // ...
-        services: ['chromedriver'],
-
         //
         // ==================
         // Specify Test Files
